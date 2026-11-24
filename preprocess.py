@@ -1,0 +1,10 @@
+import pandas as pd
+df = pd.read_csv("data/Base.csv")
+print(df.shape, df.duplicated().sum(), "duplicate rows")
+print(df.dtypes.value_counts())
+print(df.groupby("month")["fraud_bool"].agg(["size", "mean"]))
+print(df["customer_age"].value_counts().sort_index())
+num = df.select_dtypes("number")
+print((num == -1).mean().loc[lambda s: s > 0].sort_values(ascending = False))
+print((num < 0).sum().loc[lambda s: s > 0])
+print(num.nunique().loc[lambda s: s <=1])
